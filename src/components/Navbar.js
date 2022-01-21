@@ -1,13 +1,15 @@
-import { Backdrop, Fade, Modal } from "@mui/material";
+import { Backdrop, Modal } from "@mui/material";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { colors } from "../utils/appConstant";
 import Login from "./Login";
+import Signup from "./Signup";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [isLogin, setLogin] = useState(true);
   return (
     <Container>
       <Img src="../assets/logo.jpeg" />
@@ -25,7 +27,11 @@ const Navbar = () => {
           timeout: 500,
         }}
       >
-        <Login open={open} />
+        {isLogin ? (
+          <Login open={open} handleClose={handleClose} setLogin={setLogin} />
+        ) : (
+          <Signup open={open} handleClose={handleClose} setLogin={setLogin} />
+        )}
       </Modal>
     </Container>
   );

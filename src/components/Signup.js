@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { colors } from "../utils/appConstant";
 import CloseIcon from "@mui/icons-material/Close";
 
-const Login = ({ open, handleClose, setLogin }) => {
+const Signup = ({ open, handleClose, setLogin }) => {
   const submitForm = (e) => {
     e.preventDefault();
   };
@@ -24,14 +24,20 @@ const Login = ({ open, handleClose, setLogin }) => {
             onClick={handleClose}
           />
         </Head>
-        <Intro>Welcome Guest</Intro>
-
+        <Intro>Join Us</Intro>
         <Form>
           <InputBox>
+            <Input
+              id="name"
+              label="Full Name"
+              variant="standard"
+              autoComplete={false}
+            />
             <Input
               id="email"
               label="Email"
               variant="standard"
+              type="email"
               autoComplete={false}
             />
             <Input
@@ -42,7 +48,7 @@ const Login = ({ open, handleClose, setLogin }) => {
             />
           </InputBox>
           <Btn variant="contained" type="submit" onClick={submitForm}>
-            Login
+            Register
           </Btn>
           <RuleBox>
             <Hr /> or <Hr />
@@ -51,8 +57,8 @@ const Login = ({ open, handleClose, setLogin }) => {
             <Img src="/google.png" /> Login with Google
           </Btn2>
           <Register>
-            Not registered yet?{" "}
-            <Link onClick={() => setLogin(false)}>Click here</Link>
+            Already Registered?
+            <Link onClick={() => setLogin(true)}> Click here</Link>
           </Register>
         </Form>
       </Container>
@@ -60,8 +66,7 @@ const Login = ({ open, handleClose, setLogin }) => {
   );
 };
 
-export default Login;
-
+export default Signup;
 const Container = styled.div`
   background-color: ${colors.modal};
   position: absolute;
@@ -86,10 +91,12 @@ const Form = styled.form`
   width: 100%;
   align-items: center;
   justify-content: space-evenly;
-  height: 75%;
-  align-self: center;
+  height: 90%;
 `;
 
+const Intro = styled.span`
+  font-size: 23px;
+`;
 const Input = styled(TextField)`
   width: 350px;
 `;
@@ -142,10 +149,6 @@ const Btn2 = styled.button`
     background-color: #fff;
     transition: 0.3s;
   }
-`;
-
-const Intro = styled.span`
-  font-size: 23px;
 `;
 
 const Register = styled.p`

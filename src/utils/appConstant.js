@@ -3,4 +3,5 @@ export const colors = {
   navbarItem: "black",
   footer: "teal",
   modal: "white",
+  rule: "#aaa",
 };
