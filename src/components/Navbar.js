@@ -1,8 +1,9 @@
 import { Backdrop, Modal } from "@mui/material";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../utils/appConstant";
-import Login from "./Login";
+import Login from "../containers/Login";
 import Signup from "./Signup";
 
 const Navbar = () => {
@@ -10,12 +11,15 @@ const Navbar = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [isLogin, setLogin] = useState(true);
+  const navigate = useNavigate();
   return (
     <Container>
-      <Img src="../assets/logo.jpeg" />
+      <Img src="../assets/logo.jpeg" onClick={() => navigate("/")} />
+
       <Items>
-        <Item>Add</Item>
-        <Item>Profile</Item>
+        <Item onClick={() => navigate("/products")}>Products</Item>
+        <Item onClick={() => navigate("/new")}>New</Item>
+        <Item onClick={() => navigate("/profile")}>Profile</Item>
         <Item onClick={handleOpen}>Login</Item>
       </Items>
       <Modal
@@ -63,4 +67,5 @@ const Item = styled.div`
 const Img = styled.img`
   background-color: black;
   width: 200px;
+  height: 100%;
 `;

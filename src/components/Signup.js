@@ -145,8 +145,9 @@ const Btn2 = styled.button`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  background-color: #fff;
   &:hover {
-    background-color: #fff;
+    background-color: #fafafa;
     transition: 0.3s;
   }
 `;
