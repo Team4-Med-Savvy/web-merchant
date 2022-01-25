@@ -1,12 +1,24 @@
 import { Button, Fade, TextField } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { colors } from "../utils/appConstant";
 import CloseIcon from "@mui/icons-material/Close";
+import { api } from "../utils/axios";
 
 const Login = ({ open, handleClose, setLogin }) => {
+  const [email, setEmail] = useState(null);
+  const [pass, setPass] = useState(null);
   const submitForm = (e) => {
     e.preventDefault();
+    const re = /\S+@\S+\.\S+/;
+    if (email && re.test(email)) {
+      if (pass && pass.length > 7) {
+        api
+          .post("/user/authenticate", { username: email, password: pass })
+          .then((res) => console.log(res.data))
+          .catch((err) => console.log(err.message));
+      }
+    }
   };
   const googleLogin = (e) => {
     e.preventDefault();
@@ -33,12 +45,14 @@ const Login = ({ open, handleClose, setLogin }) => {
               label="Email"
               variant="standard"
               autoComplete={false}
+              onInput={(e) => setEmail(e.target.value)}
             />
             <Input
               id="password"
               label="Password"
               variant="standard"
               type="password"
+              onInput={(e) => setPass(e.target.value)}
             />
           </InputBox>
           <Btn variant="contained" type="submit" onClick={submitForm}>

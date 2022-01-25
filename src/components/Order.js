@@ -5,7 +5,10 @@ const Order = ({ data }) => {
   //   const navigate = useNavigate();
   return (
     <Container>
-      <Img alt="product image" src="" />
+      <Img
+        alt="product image"
+        src="https://images.unsplash.com/photo-1642948816628-9b457871592d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+      />
       <Info>
         <Text>Product</Text>
         <Text>Date Added</Text>
@@ -37,7 +40,7 @@ const Container = styled.div`
 
 const Img = styled.img`
   flex: 0.3;
-  width: 100%;
+  max-width: 30%;
 `;
 
 const Info = styled.div`

@@ -14,7 +14,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   return (
     <Container>
-      <Img src="../assets/logo.jpeg" onClick={() => navigate("/")} />
+      <Img src="/logo.jpeg" onClick={() => navigate("/")} />
 
       <Items>
         <Item onClick={() => navigate("/products")}>Products</Item>
@@ -66,6 +66,7 @@ const Item = styled.div`
 `;
 const Img = styled.img`
   background-color: black;
-  width: 200px;
-  height: 100%;
+  width: 150px;
+  /* height: 100%; */
+  margin: 10px;
 `;

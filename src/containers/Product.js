@@ -10,7 +10,10 @@ const Product = () => {
   const { id } = useParams();
   return (
     <Container>
-      <Img alt="Product Image" />
+      <Img
+        alt="Product Image"
+        src="https://images.unsplash.com/photo-1642948816628-9b457871592d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+      />
       <Info>
         <Head>
           <Left>
@@ -77,6 +80,7 @@ const Container = styled.div`
   display: flex;
   padding-top: 80px;
   min-height: 80vh;
+  align-items: center;
 `;
 const Left = styled.div``;
 const Right = styled.div`
@@ -87,8 +91,9 @@ const Right = styled.div`
 
 const Img = styled.img`
   flex: 0.4;
-  width: 100%;
+  width: 40%;
   height: 100%;
+  margin: 20px;
 `;
 const Info = styled.div`
   flex: 0.6;

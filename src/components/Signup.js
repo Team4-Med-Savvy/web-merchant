@@ -1,12 +1,35 @@
 import { Button, Fade, TextField } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { colors } from "../utils/appConstant";
 import CloseIcon from "@mui/icons-material/Close";
+import { api } from "../utils/axios";
 
 const Signup = ({ open, handleClose, setLogin }) => {
+  const [name, setName] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [pass, setPass] = useState(null);
+
   const submitForm = (e) => {
     e.preventDefault();
+    const re = /\S+@\S+\.\S+/;
+
+    if (name) {
+      if (email && re.test(email)) {
+        if (pass && pass.length > 7) {
+          api
+            .post("/user/register", {
+              name: name,
+              email: email,
+              password: pass,
+              merchant: true,
+              points: 1000,
+            })
+            .then((res) => console.log(res.data))
+            .catch((err) => console.log(err.message));
+        }
+      }
+    }
   };
   const googleLogin = (e) => {
     e.preventDefault();
@@ -32,6 +55,7 @@ const Signup = ({ open, handleClose, setLogin }) => {
               label="Full Name"
               variant="standard"
               autoComplete={false}
+              onInput={(e) => setName(e.target.value)}
             />
             <Input
               id="email"
@@ -39,12 +63,14 @@ const Signup = ({ open, handleClose, setLogin }) => {
               variant="standard"
               type="email"
               autoComplete={false}
+              onInput={(e) => setEmail(e.target.value)}
             />
             <Input
               id="password"
               label="Password"
               variant="standard"
               type="password"
+              onInput={(e) => setPass(e.target.value)}
             />
           </InputBox>
           <Btn variant="contained" type="submit" onClick={submitForm}>
