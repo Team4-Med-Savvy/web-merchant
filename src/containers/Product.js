@@ -26,7 +26,7 @@ const Product = () => {
           </Right>
         </Head>
 
-        {!cart.products.includes(id) ? (
+        {/* {!cart.products.includes(id) ? (
           <Button variant="contained">Add to Cart</Button>
         ) : (
           <Quantity>
@@ -39,7 +39,7 @@ const Product = () => {
               Dec
             </Button>
           </Quantity>
-        )}
+        )} */}
 
         <Desc>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut diam
@@ -108,10 +108,10 @@ const Price = styled.h2`
   font-size: 22;
 `;
 
-const Quantity = styled.span``;
-const Count = styled.span`
-  margin: 0 30px;
-`;
+// const Quantity = styled.span``;
+// const Count = styled.span`
+//   margin: 0 30px;
+// `;
 
 const Desc = styled.p`
   max-width: 80%;

@@ -7,3 +7,10 @@ export const api = axios.create({
     // "Access-Control-Allow-Origin": "*",
   },
 });
+
+export const apiProduct = axios.create({
+  baseURL: "http://localhost:8082",
+  headers: {
+    "content-type": "application/json",
+  },
+});

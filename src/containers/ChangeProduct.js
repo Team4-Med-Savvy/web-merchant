@@ -7,27 +7,55 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { apiProduct } from "../utils/axios";
 
 const ChangeProduct = () => {
   const [category, setCategory] = useState("Covid Essentials");
+  const [title, setTitle] = useState(null);
+  const [stock, setStock] = useState(null);
+  const [price, setPrice] = useState(null);
+  const [image, setImage] = useState(null);
+  const [desc, setDesc] = useState(null);
   const handleChange = (event) => {
     setCategory(event.target.value);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    apiProduct.post("/product", { title, stock, price, image, desc, category });
   };
   return (
     <Container>
       <Box>
         <Text>Product Details</Text>
         <Form>
-          <Input label="Product Name" />
-          <Input label="Product Stock" type="number" />
-          <Input label="Product Price" type="number" />
+          <Input
+            label="Product Title"
+            onInput={(e) => setTitle(e.target.value)}
+          />
+          <Input
+            label="Product Stock"
+            type="number"
+            onInput={(e) => setStock(e.target.value)}
+          />
+          <Input
+            label="Product Price"
+            type="number"
+            onInput={(e) => setPrice(e.target.value)}
+          />
+          <Input
+            label="Product Image"
+            type="text"
+            onInput={(e) => setImage(e.target.value)}
+          />
+
           <TextareaAutosize
             maxRows={10}
             minRows={5}
             aria-label="maximum height"
             placeholder="Write product description"
             defaultValue=""
-            style={{ maxWidth: 400, width: "100%" }}
+            style={{ maxWidth: 390, width: "100%" }}
+            onInput={(e) => setDesc(e.target.value)}
           />
           <Select
             value={category}
@@ -41,7 +69,9 @@ const ChangeProduct = () => {
             <MenuItem value={"Surgical"}>Surgical</MenuItem>
             <MenuItem value={"Personal Care"}>Personal Care</MenuItem>
           </Select>
-          <Button variant="contained">Submit</Button>
+          <Button variant="contained" onClick={handleSubmit}>
+            Submit
+          </Button>
         </Form>
       </Box>
     </Container>
