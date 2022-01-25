@@ -4,8 +4,12 @@ import styled from "styled-components";
 import { colors } from "../utils/appConstant";
 import CloseIcon from "@mui/icons-material/Close";
 import { api } from "../utils/axios";
+import { useDispatch } from "react-redux";
+import { setUser, setToken } from "../features/userSlice";
 
 const Login = ({ open, handleClose, setLogin }) => {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState(null);
   const [pass, setPass] = useState(null);
   const submitForm = (e) => {
@@ -15,8 +19,12 @@ const Login = ({ open, handleClose, setLogin }) => {
       if (pass && pass.length > 7) {
         api
           .post("/user/authenticate", { username: email, password: pass })
-          .then((res) => console.log(res.data))
-          .catch((err) => console.log(err.message));
+          .then((res) => {
+            dispatch(setUser(res.data));
+            dispatch(setToken(res.data.token));
+            handleClose();
+          })
+          .catch((err) => alert(err.message));
       }
     }
   };

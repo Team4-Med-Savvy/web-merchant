@@ -5,10 +5,20 @@ import styled from "styled-components";
 import { colors } from "../utils/appConstant";
 import Login from "../containers/Login";
 import Signup from "./Signup";
+import { useDispatch, useSelector } from "react-redux";
+import { removeUser, tokenSelector } from "../features/userSlice";
 
 const Navbar = () => {
+  const token = useSelector(tokenSelector);
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    if (!token) {
+      setOpen(true);
+    } else {
+      dispatch(removeUser());
+    }
+  };
   const handleClose = () => setOpen(false);
   const [isLogin, setLogin] = useState(true);
   const navigate = useNavigate();
@@ -20,7 +30,7 @@ const Navbar = () => {
         <Item onClick={() => navigate("/products")}>Products</Item>
         <Item onClick={() => navigate("/new")}>New</Item>
         <Item onClick={() => navigate("/profile")}>Profile</Item>
-        <Item onClick={handleOpen}>Login</Item>
+        <Item onClick={() => handleOpen()}>{token ? "Logout" : "Login"}</Item>
       </Items>
       <Modal
         open={open}

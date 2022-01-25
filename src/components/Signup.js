@@ -4,11 +4,14 @@ import styled from "styled-components";
 import { colors } from "../utils/appConstant";
 import CloseIcon from "@mui/icons-material/Close";
 import { api } from "../utils/axios";
+import { useDispatch } from "react-redux";
+import { setToken, setUser } from "../features/userSlice";
 
 const Signup = ({ open, handleClose, setLogin }) => {
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
   const [pass, setPass] = useState(null);
+  const dispatch = useDispatch();
 
   const submitForm = (e) => {
     e.preventDefault();
@@ -25,8 +28,17 @@ const Signup = ({ open, handleClose, setLogin }) => {
               merchant: true,
               points: 1000,
             })
-            .then((res) => console.log(res.data))
-            .catch((err) => console.log(err.message));
+            .then(() =>
+              api
+                .post("/user/authenticate", { username: email, password: pass })
+                .then((res) => {
+                  dispatch(setUser(res.data));
+                  dispatch(setToken(res.data.token));
+                  handleClose();
+                })
+                .catch((err) => alert("Invalid User/Password"))
+            )
+            .catch(() => alert("Error Creating User"));
         }
       }
     }
