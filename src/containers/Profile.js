@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Order from "../components/Order";
-
+import { userSelector } from "../features/userSlice";
+import { apiMerchant, apiOrders } from "../utils/axios";
 const arr = [
   { id: 1 },
   { id: 2 },
@@ -12,19 +14,39 @@ const arr = [
   { id: 7 },
 ];
 const Profile = () => {
+  const user = useSelector(userSelector);
+  const [profile, setProfile] = useState(null);
+  useEffect(() => {
+    if (user)
+      apiMerchant
+        .get(`/merchant/profile/${user.id}`)
+        .then((res) => setProfile(res.data))
+        .catch((e) => {
+          console.log(e);
+        });
+  }, [user]);
   return (
     <Container>
-      <UserInfo>
-        <Text>Name</Text>
-        <Text>Email</Text>
-        <Text>Points</Text>
-        <Text>Membership</Text>
-      </UserInfo>
-      <Previous>
-        {arr.map((data) => (
-          <Order data={data} />
-        ))}
-      </Previous>
+      {user && profile ? (
+        <>
+          <UserInfo>
+            <Text>Name : {user.name}</Text>
+            <Text>Email : {user.email}</Text>
+            <Text>Points : {user.points}</Text>
+            <Text>Benefits : {"Silver"}</Text>
+          </UserInfo>
+          {console.log(profile)}
+          <Previous>
+            {profile.products ? (
+              profile.products.map((data) => <Order data={data} />)
+            ) : (
+              <Text>No Available Products!</Text>
+            )}
+          </Previous>
+        </>
+      ) : (
+        <Text>Login to view Profile!</Text>
+      )}
     </Container>
   );
 };

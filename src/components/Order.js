@@ -1,22 +1,20 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Order = ({ data }) => {
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
-    <Container>
-      <Img
-        alt="product image"
-        src="https://images.unsplash.com/photo-1642948816628-9b457871592d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
-      />
+    <Container onClick={() => navigate(`/edit/${data.productId}`)}>
+      <Img alt="product image" src={data.image} />
       <Info>
-        <Text>Product</Text>
-        <Text>Date Added</Text>
-        <Text>Stock - 8</Text>
+        <Text>{data.title}</Text>
+        <Text>{data.productId}</Text>
+        <Text>Stock - {data.stock}</Text>
       </Info>
       <Total>
         <Text>Price</Text>
-        <Text>Total</Text>
+        <Text>{data.price}</Text>
       </Total>
     </Container>
   );

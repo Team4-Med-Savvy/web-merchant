@@ -22,6 +22,7 @@ const Login = ({ open, handleClose, setLogin }) => {
           .then((res) => {
             dispatch(setUser(res.data));
             dispatch(setToken(res.data.token));
+            localStorage.setItem("token", res.data.token);
             handleClose();
           })
           .catch((err) => alert(err.message));

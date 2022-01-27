@@ -15,7 +15,7 @@ const Product = () => {
       .catch((e) => {
         console.log(e);
       });
-  });
+  }, []);
   return (
     <Container>
       {data && (

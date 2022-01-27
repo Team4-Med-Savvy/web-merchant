@@ -18,3 +18,5 @@ export const apiProduct = axios.create({
 export const apiMerchant = axios.create({
   baseURL: "http://localhost:8185",
 });
+
+export const apiOrders = axios.create({ baseURL: "http://localhost:8187" });

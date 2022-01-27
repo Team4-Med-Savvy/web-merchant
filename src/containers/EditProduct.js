@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { userSelector } from "../features/userSlice";
-import { apiProduct } from "../utils/axios";
+import { apiMerchant, apiProduct } from "../utils/axios";
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -26,16 +26,15 @@ const EditProduct = () => {
       .catch((e) => {
         console.log(e);
       });
-  });
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (user) {
-      apiProduct
-        .post(`/product/${id}`, {
+    if (user != null) {
+      apiMerchant
+        .post(`/merchant/prod/${id}/${user.id}`, {
           stock: stock,
           price: price,
-          merchantId: user.id,
         })
         .then((res) => {
           alert("Product Added!");

@@ -17,6 +17,7 @@ const Navbar = () => {
       setOpen(true);
     } else {
       dispatch(removeUser());
+      localStorage.removeItem("token");
     }
   };
   const handleClose = () => setOpen(false);

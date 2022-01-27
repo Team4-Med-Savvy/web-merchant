@@ -9,8 +9,27 @@ import Profile from "./containers/Profile";
 import ChangeProduct from "./containers/ChangeProduct";
 import SubNav from "./components/SubNav";
 import EditProduct from "./containers/EditProduct";
+import { useEffect } from "react";
+import { setToken, setUser } from "./features/userSlice";
+import { useDispatch } from "react-redux";
+import { api } from "./utils/axios";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    api
+      .post("/user/extract", { token: localStorage.getItem("token") })
+      .then((res) => {
+        dispatch(setUser(res.data));
+        dispatch(setToken(res.data.token));
+      })
+      .catch((e) => {
+        // localStorage.removeItem("token");
+        console.log(e);
+      });
+  }, []);
+
   return (
     <Router>
       <Navbar />
