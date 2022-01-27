@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { colors } from "../utils/appConstant";
 import CloseIcon from "@mui/icons-material/Close";
-import { api } from "../utils/axios";
+import { api, apiMerchant } from "../utils/axios";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../features/userSlice";
 
@@ -28,7 +28,7 @@ const Signup = ({ open, handleClose, setLogin }) => {
               merchant: true,
               points: 1000,
             })
-            .then(() =>
+            .then(() => {
               api
                 .post("/user/authenticate", { username: email, password: pass })
                 .then((res) => {
@@ -36,8 +36,8 @@ const Signup = ({ open, handleClose, setLogin }) => {
                   dispatch(setToken(res.data.token));
                   handleClose();
                 })
-                .catch((err) => alert("Invalid User/Password"))
-            )
+                .catch((err) => alert("Invalid User/Password"));
+            })
             .catch(() => alert("Error Creating User"));
         }
       }

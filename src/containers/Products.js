@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import ProductCard from "../components/ProductCard";
+import { apiProduct } from "../utils/axios";
 
 const cards = [
   { id: 1, title: "Hello", price: "world", options: 3, url: "" },
@@ -12,13 +14,22 @@ const cards = [
   { id: 7, title: "Hello", price: "world", options: 1, url: "" },
 ];
 const Products = () => {
+  const [products, setProducts] = useState(null);
+  const { id } = useParams();
+  useEffect(() => {
+    apiProduct
+      .get(`/product/findlist/${id}`)
+      .then((res) => setProducts(res.data))
+      .catch((e) => console.log(e));
+  }, [id]);
   return (
     <Container>
       <Head>All Products</Head>
       <All>
-        {cards.map((card) => {
-          return <ProductCard data={card} />;
-        })}
+        {products &&
+          products.map((card) => {
+            return <ProductCard data={card} />;
+          })}
       </All>
     </Container>
   );
@@ -27,7 +38,6 @@ const Products = () => {
 export default Products;
 
 const Container = styled.div`
-  padding-top: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;

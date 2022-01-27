@@ -27,7 +27,7 @@ const Navbar = () => {
       <Img src="/logo.jpeg" onClick={() => navigate("/")} />
 
       <Items>
-        <Item onClick={() => navigate("/products")}>Products</Item>
+        {/* <Item onClick={() => navigate("/products")}>Products</Item> */}
         <Item onClick={() => navigate("/new")}>New</Item>
         <Item onClick={() => navigate("/profile")}>Profile</Item>
         <Item onClick={() => handleOpen()}>{token ? "Logout" : "Login"}</Item>

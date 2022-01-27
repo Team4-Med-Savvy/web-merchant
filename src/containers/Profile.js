@@ -31,7 +31,6 @@ const Profile = () => {
 
 export default Profile;
 const Container = styled.div`
-  padding-top: 80px;
   display: flex;
 `;
 const UserInfo = styled.div`

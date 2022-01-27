@@ -6,11 +6,14 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { userSelector } from "../features/userSlice";
 import { apiProduct } from "../utils/axios";
 
 const ChangeProduct = () => {
-  const [category, setCategory] = useState("Covid Essentials");
+  const user = useSelector(userSelector);
+  const [category, setCategory] = useState("Covid essentials");
   const [title, setTitle] = useState(null);
   const [stock, setStock] = useState(null);
   const [price, setPrice] = useState(null);
@@ -21,7 +24,29 @@ const ChangeProduct = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    apiProduct.post("/product", { title, stock, price, image, desc, category });
+    if (user) {
+      apiProduct
+        .post("/product", {
+          title: title,
+          stock: stock,
+          price: price,
+          image: image,
+          description: desc,
+          category: category,
+          merchantId: user.id,
+        })
+        .then((res) => {
+          setTitle("");
+          setStock(0);
+          setPrice(0);
+          setImage("");
+          setDesc("");
+          alert("Product Added!");
+        })
+        .catch((e) => console.log(e));
+    } else {
+      alert("Sign In to add Product!!");
+    }
   };
   return (
     <Container>
@@ -30,27 +55,32 @@ const ChangeProduct = () => {
         <Form>
           <Input
             label="Product Title"
+            value={title}
             onInput={(e) => setTitle(e.target.value)}
           />
           <Input
             label="Product Stock"
             type="number"
+            value={stock}
             onInput={(e) => setStock(e.target.value)}
           />
           <Input
             label="Product Price"
             type="number"
+            value={price}
             onInput={(e) => setPrice(e.target.value)}
           />
           <Input
             label="Product Image"
             type="text"
+            value={image}
             onInput={(e) => setImage(e.target.value)}
           />
 
           <TextareaAutosize
             maxRows={10}
             minRows={5}
+            value={desc}
             aria-label="maximum height"
             placeholder="Write product description"
             defaultValue=""
@@ -63,11 +93,11 @@ const ChangeProduct = () => {
             onChange={handleChange}
             sx={{ maxWidth: 400, width: "100%" }}
           >
-            <MenuItem value={"Covid Essentials"}>Covid Essentials</MenuItem>
-            <MenuItem value={"Skin Care"}>Skin Care</MenuItem>
+            <MenuItem value={"Covid essentials"}>Covid Essentials</MenuItem>
+            <MenuItem value={"Skin care"}>Skin Care</MenuItem>
             <MenuItem value={"Ayurvedic"}>Ayurvedic</MenuItem>
             <MenuItem value={"Surgical"}>Surgical</MenuItem>
-            <MenuItem value={"Personal Care"}>Personal Care</MenuItem>
+            <MenuItem value={"Personal care"}>Personal Care</MenuItem>
           </Select>
           <Button variant="contained" onClick={handleSubmit}>
             Submit
@@ -81,7 +111,6 @@ const ChangeProduct = () => {
 export default ChangeProduct;
 
 const Container = styled.div`
-  padding-top: 80px;
   display: flex;
   align-items: center;
   justify-content: center;

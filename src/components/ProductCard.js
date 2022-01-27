@@ -4,17 +4,14 @@ import styled from "styled-components";
 
 const ProductCard = ({ data }) => {
   const navigate = useNavigate();
+  console.log(data);
   return (
     <Container onClick={() => navigate(`/product/${data.id}`)}>
-      <Img
-        src={
-          "https://images.unsplash.com/photo-1642948816628-9b457871592d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
-        }
-      />
+      <Img src={data.image} />
       <Tags>
         <Title>{data.title}</Title>
-        <Price>{data.price}</Price>
-        <Options>Merchants: {data.options}</Options>
+        <Price>Rs. {data.price}</Price>
+        <Options>Merchants: {data.merchantdto.length}</Options>
       </Tags>
     </Container>
   );

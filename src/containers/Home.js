@@ -1,9 +1,10 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import ProductCard from "../components/ProductCard";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { IconButton } from "@mui/material";
+import { apiProduct } from "../utils/axios";
 const cards = [
   { id: 1, title: "Hello", price: "world", options: 3, url: "" },
   { id: 2, title: "Hello", price: "world", options: 2, url: "" },
@@ -15,6 +16,13 @@ const cards = [
 ];
 
 const Home = () => {
+  const [recommend, setRecommend] = useState(null);
+  useEffect(() => {
+    apiProduct
+      .get("/product/recommend")
+      .then((res) => setRecommend(res.data))
+      .catch((e) => console.log(e));
+  }, []);
   const scrollRef = useRef(null);
   return (
     <Container>
@@ -36,9 +44,10 @@ const Home = () => {
           </span>
         </Text>
         <List ref={scrollRef}>
-          {cards.map((card) => {
-            return <ProductCard data={card} />;
-          })}
+          {recommend &&
+            recommend.map((card) => {
+              return <ProductCard data={card} />;
+            })}
         </List>
       </Recom>
     </Container>
@@ -48,7 +57,7 @@ const Home = () => {
 export default Home;
 
 const Container = styled.div`
-  padding-top: 80px;
+  /* padding-top: 80px; */
   width: 100vw;
   display: flex;
   align-items: center;
@@ -57,6 +66,7 @@ const Container = styled.div`
 `;
 const Recom = styled.div`
   max-width: 1300px;
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;
@@ -70,6 +80,7 @@ const Text = styled.h2`
   font-weight: 400;
   margin-top: 30px;
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
 `;
