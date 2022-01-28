@@ -95,7 +95,7 @@ const ChangeProduct = () => {
           >
             <MenuItem value={"Covid essentials"}>Covid Essentials</MenuItem>
             <MenuItem value={"Skin care"}>Skin Care</MenuItem>
-            <MenuItem value={"Ayurvedic"}>Ayurvedic</MenuItem>
+            <MenuItem value={"Ayurvedic care"}>Ayurvedic</MenuItem>
             <MenuItem value={"Surgical"}>Surgical</MenuItem>
             <MenuItem value={"Personal care"}>Personal Care</MenuItem>
           </Select>

@@ -4,15 +4,6 @@ import styled from "styled-components";
 import ProductCard from "../components/ProductCard";
 import { apiProduct } from "../utils/axios";
 
-const cards = [
-  { id: 1, title: "Hello", price: "world", options: 3, url: "" },
-  { id: 2, title: "Hello", price: "world", options: 2, url: "" },
-  { id: 3, title: "Hello", price: "world", options: 1, url: "" },
-  { id: 4, title: "Hello", price: "world", options: 1, url: "" },
-  { id: 5, title: "Hello", price: "world", options: 1, url: "" },
-  { id: 6, title: "Hello", price: "world", options: 1, url: "" },
-  { id: 7, title: "Hello", price: "world", options: 1, url: "" },
-];
 const Products = () => {
   const [products, setProducts] = useState(null);
   const { id } = useParams();
@@ -21,6 +12,7 @@ const Products = () => {
       .get(`/product/findlist/${id}`)
       .then((res) => setProducts(res.data))
       .catch((e) => console.log(e));
+    console.log(id, products);
   }, [id]);
   return (
     <Container>

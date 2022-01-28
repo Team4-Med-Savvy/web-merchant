@@ -1,25 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../utils/appConstant";
+import { apiProduct } from "../utils/axios";
 
-const categories = [
-  { url: "", name: "Covid essentials", id: 1 },
-  { url: "", name: "Ayurvedic Care", id: 2 },
-  { url: "", name: "Skin Care", id: 3 },
-  { url: "", name: "Surgical", id: 4 },
-  { url: "", name: "Personal Care", id: 5 },
-];
+// const categories = [
+//   { url: "", name: "Covid essentials", id: 1 },
+//   { url: "", name: "Ayurvedic care", id: 2 },
+//   { url: "", name: "Skin care", id: 3 },
+//   { url: "", name: "Surgical", id: 4 },
+//   { url: "", name: "Personal care", id: 5 },
+// ];
 const SubNav = () => {
+  const [categories, setCategories] = useState(null);
+  useEffect(() => {
+    apiProduct
+      .get("/category")
+      .then((res) => setCategories(res.data))
+      .catch((e) => console.log(e));
+  }, []);
   const navigate = useNavigate();
   return (
     <Container>
-      {categories.map((item) => (
-        <Item onClick={() => navigate(`/products/${item.name}`)}>
-          <Img src={item.url} alt={item.id} />
-          <Text>{item.name}</Text>
-        </Item>
-      ))}
+      {categories &&
+        categories.map((item) => (
+          <Item onClick={() => navigate(`/products/${item.name}`)}>
+            <Img src={item.image} alt={item.id} />
+            <Text>{item.name}</Text>
+          </Item>
+        ))}
     </Container>
   );
 };
@@ -27,7 +36,7 @@ const SubNav = () => {
 export default SubNav;
 
 const Container = styled.div`
-  height: 60px;
+  height: 70px;
   background-color: ${colors.navbarItem};
   display: flex;
   color: ${colors.rule};
@@ -46,8 +55,9 @@ const Item = styled.div`
 `;
 
 const Img = styled.img`
-  height: 40px;
-  width: 40px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
 `;
 
 const Text = styled.span``;

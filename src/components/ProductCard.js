@@ -20,11 +20,13 @@ const ProductCard = ({ data }) => {
 export default ProductCard;
 
 const Container = styled.div`
-  min-width: 300px;
-  height: 300px;
+  width: 300px;
+  height: 350px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  text-align: center;
   align-items: center;
   /* padding: 0 10px; */
   border-radius: 5px;
@@ -33,7 +35,7 @@ const Container = styled.div`
 `;
 const Img = styled.img`
   width: 100%;
-  height: 150px;
+  height: 200px;
   border-radius: 5px 5px 0 0;
   margin-bottom: 10px;
 `;

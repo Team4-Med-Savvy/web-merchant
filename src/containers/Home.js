@@ -22,6 +22,7 @@ const Home = () => {
       .get("/product/recommend")
       .then((res) => setRecommend(res.data))
       .catch((e) => console.log(e));
+    console.log(recommend);
   }, []);
   const scrollRef = useRef(null);
   return (
